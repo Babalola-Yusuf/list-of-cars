@@ -9,11 +9,14 @@ function App() {
 
   const handleAddCar=()=>{
     const newCar = {year:carYear, make:carMake, model:carModel}
-    setCar(c =>[...c, newCar])
+    setCar(c =>[...c, newCar]);
+    setCarYear(new Date().getFullYear());
+    setCarMake("");
+    setCarModel("");
   }
 
   const handleRemoveCar = (index) =>{
-
+      setCar(c => c.filter((_, i)=> index !== i))
   }
 
   const handleYearChange = (event) =>{
@@ -34,7 +37,7 @@ function App() {
         <h1>List of car objects</h1>
         <ul>
           {cars.map((car, index)=>
-            <li key={index}>{car.year}  {car.make} {car.model}</li>
+            <li key={index} onClick={()=>handleRemoveCar(index)}>{car.year}  {car.make} {car.model} </li>
           )}
         </ul>
        <input type="number" onChange={handleYearChange} value={carYear} className='border-2' placeholder='input year'/>
